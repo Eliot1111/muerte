@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+
+# Build
+dist/
+dist-ssr/
+*.tsbuildinfo
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Vite
+.vite/
+.vite-temp/
+
+# Temp conversion files
+public/menu/.tmp-*
+
+# Optional: large source archives (assets are in public/ after prepare:assets)
+# models/*.zip
+# textures/*.zip

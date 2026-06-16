@@ -1,0 +1,104 @@
+.magnetic-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 100px;
+  overflow: hidden;
+  transition: box-shadow 0.4s var(--ease-out-expo);
+}
+
+.magnetic-btn__inner {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;
+  border-radius: 100px;
+  z-index: 1;
+}
+
+.magnetic-btn__text {
+  position: relative;
+  z-index: 2;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.magnetic-btn__glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out-expo);
+}
+
+.magnetic-btn--primary {
+  background: linear-gradient(135deg, var(--color-red) 0%, #8b1528 100%);
+  box-shadow: 0 4px 24px var(--color-red-glow);
+}
+
+.magnetic-btn--primary .magnetic-btn__text {
+  color: var(--color-bone);
+}
+
+.magnetic-btn--primary .magnetic-btn__glow {
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.2), transparent 70%);
+}
+
+.magnetic-btn--primary:hover {
+  box-shadow: 0 8px 40px var(--color-red-glow);
+}
+
+.magnetic-btn--primary:hover .magnetic-btn__glow {
+  opacity: 1;
+}
+
+.magnetic-btn--secondary {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(12px);
+}
+
+.magnetic-btn--secondary .magnetic-btn__text {
+  color: var(--color-bone);
+}
+
+.magnetic-btn--secondary .magnetic-btn__glow {
+  background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.15), transparent 70%);
+}
+
+.magnetic-btn--secondary:hover {
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-glow-gold);
+}
+
+.magnetic-btn--secondary:hover .magnetic-btn__glow {
+  opacity: 1;
+}
+
+.magnetic-btn--ghost {
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+.magnetic-btn--ghost .magnetic-btn__text {
+  color: var(--color-bone-muted);
+}
+
+.magnetic-btn--ghost:hover .magnetic-btn__text {
+  color: var(--color-bone);
+}
+
+@media (max-width: 768px) {
+  .magnetic-btn__inner {
+    padding: 0.875rem 1.5rem;
+  }
+
+  .magnetic-btn__text {
+    font-size: 0.75rem;
+  }
+}

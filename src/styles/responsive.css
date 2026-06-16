@@ -1,0 +1,29 @@
+/* Mobile-first responsive overrides */
+
+@media (max-width: 768px) {
+  :root {
+    --header-height: 64px;
+    --section-padding: clamp(3.5rem, 10vw, 5rem);
+    --container-padding: clamp(1rem, 4vw, 1.5rem);
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 9vw, 2.75rem);
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --header-height: 60px;
+  }
+
+  .section-label {
+    font-size: 0.65rem;
+    margin-bottom: 1rem;
+  }
+}

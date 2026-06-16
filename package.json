@@ -1,0 +1,41 @@
+{
+  "name": "santa-muerte",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "scripts": {
+    "prepare:photos": "node scripts/convert-heic.mjs",
+    "prepare:assets": "node scripts/prepare-assets.mjs",
+    "dev": "npm run prepare:assets && npm run prepare:photos && vite",
+    "build": "npm run prepare:assets && npm run prepare:photos && tsc -b && vite build --mode production",
+    "postbuild": "node scripts/verify-production.mjs",
+    "preview": "vite preview --host 0.0.0.0 --port 4173",
+    "start": "npm run preview",
+    "typecheck": "tsc -b"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.0.4",
+    "@react-three/fiber": "^9.0.4",
+    "@react-three/postprocessing": "^3.0.4",
+    "framer-motion": "^12.4.7",
+    "gsap": "^3.12.7",
+    "lenis": "^1.1.21",
+    "postprocessing": "^6.36.7",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "three": "^0.173.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@types/three": "^0.173.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "sharp": "^0.33.5",
+    "typescript": "~5.7.3",
+    "vite": "^6.2.0"
+  }
+}
