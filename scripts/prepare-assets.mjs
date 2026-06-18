@@ -43,14 +43,14 @@ ensureDir(dirs.metal);
 
 // Skull model
 extractZip(
-  path.join(root, 'models', 'black-mexican-skull-with-flower-pattern.zip'),
+  path.join(root, 'asset-sources', 'models', 'black-mexican-skull-with-flower-pattern.zip'),
   'source/model.glb',
   dirs.models,
   'santa-muerte-skull.glb'
 );
 
 copyIfExists(
-  path.join(root, 'models', 'candelabra_de_calavera_-_halloween.glb'),
+  path.join(root, 'asset-sources', 'models', 'candelabra_de_calavera_-_halloween.glb'),
   path.join(dirs.models, 'candles.glb')
 );
 
@@ -66,7 +66,7 @@ const optionalModels = [
 ];
 
 for (const name of optionalModels) {
-  copyIfExists(path.join(root, 'models', name), path.join(dirs.models, name));
+  copyIfExists(path.join(root, 'asset-sources', 'models', name), path.join(dirs.models, name));
 }
 
 // HDR — skip by default (22MB, unused). Set INCLUDE_HDR=1 to copy.
@@ -82,7 +82,7 @@ if (process.env.INCLUDE_HDR === '1') {
 }
 
 // Metal textures
-const metalZip = path.join(root, 'textures', 'Metal042B_1K-JPG.zip');
+const metalZip = path.join(root, 'asset-sources', 'textures', 'Metal042B_1K-JPG.zip');
 if (fs.existsSync(metalZip)) {
   execSync(`unzip -o -j "${metalZip}" "*.jpg" -d "${dirs.metal}"`, { stdio: 'pipe' });
   console.log('✓ metal PBR textures');

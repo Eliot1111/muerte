@@ -1,5 +1,10 @@
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig, loadEnv, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const htmlEntry = path.resolve(__dirname, 'index.vite.html');
 
 function resolveBaseUrl(env: Record<string, string>): string {
   if (env.VITE_BASE_URL) {
@@ -17,13 +22,27 @@ function resolveBaseUrl(env: Record<string, string>): string {
   return '/';
 }
 
+function devHtmlEntryPlugin(): Plugin {
+  return {
+    name: 'dev-html-entry',
+    configureServer(server) {
+      server.middlewares.use((req, _res, next) => {
+        if (req.url === '/' || req.url === '/index.html') {
+          req.url = '/index.vite.html';
+        }
+        next();
+      });
+    },
+  };
+}
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   const isProd = mode === 'production';
 
   return {
     base: resolveBaseUrl(env),
-    plugins: [react()],
+    plugins: [react(), devHtmlEntryPlugin()],
     build: {
       target: 'es2022',
       outDir: 'dist',
@@ -33,6 +52,7 @@ export default defineConfig(({ mode }) => {
       chunkSizeWarningLimit: 1600,
       assetsInlineLimit: 4096,
       rollupOptions: {
+        input: htmlEntry,
         output: {
           manualChunks: {
             three: ['three', '@react-three/fiber', '@react-three/drei'],

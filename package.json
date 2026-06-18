@@ -12,6 +12,7 @@
     "prepare:assets": "node scripts/prepare-assets.mjs",
     "dev": "npm run prepare:assets && npm run prepare:photos && vite",
     "build": "npm run prepare:assets && npm run prepare:photos && tsc -b && vite build --mode production",
+    "publish:pages": "node scripts/publish-root.mjs",
     "postbuild": "node scripts/verify-production.mjs",
     "preview": "vite preview --host 0.0.0.0 --port 4173",
     "start": "npm run preview",

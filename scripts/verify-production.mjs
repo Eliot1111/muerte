@@ -24,6 +24,13 @@ function main() {
     process.exit(1);
   }
 
+  const viteHtml = path.join(dist, 'index.vite.html');
+  const indexHtmlPath = path.join(dist, 'index.html');
+  if (!fs.existsSync(indexHtmlPath) && fs.existsSync(viteHtml)) {
+    fs.copyFileSync(viteHtml, indexHtmlPath);
+    console.log('✓ copied dist/index.vite.html → dist/index.html');
+  }
+
   const missing = required.filter((item) => !exists(item));
 
   if (missing.length > 0) {
@@ -51,8 +58,8 @@ function main() {
     process.exit(1);
   }
 
-  if (!fs.existsSync(path.join(dist, '404.html'))) {
-    fs.copyFileSync(path.join(dist, 'index.html'), path.join(dist, '404.html'));
+  if (!fs.existsSync(path.join(dist, '404.html')) && fs.existsSync(indexHtmlPath)) {
+    fs.copyFileSync(indexHtmlPath, path.join(dist, '404.html'));
     console.log('✓ created dist/404.html for GitHub Pages SPA routing');
   }
 
