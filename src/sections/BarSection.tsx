@@ -1,30 +1,34 @@
-import { useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { MenuAccordion } from '../components/MenuAccordion';
 import './BarSection.css';
 
 const barItems = [
   {
+    id: 'tequila',
     category: 'Текила',
     items: [
-      { name: 'Clase Azul Reposado', note: 'Гуанахуато, выдержка 8 месяцев' },
-      { name: 'Fortaleza Blanco', note: 'Тахона, 100% blue agave' },
-      { name: 'G4 Reposado', note: 'Халиско, дубовые бочки' },
+      { id: 't1', name: 'Clase Azul Reposado', description: 'Гуанахуато, выдержка 8 месяцев' },
+      { id: 't2', name: 'Fortaleza Blanco', description: 'Тахона, 100% blue agave' },
+      { id: 't3', name: 'G4 Reposado', description: 'Халиско, дубовые бочки' },
     ],
   },
   {
+    id: 'mezcal',
     category: 'Мескаль',
     items: [
-      { name: 'Del Maguey Vida', note: 'Эспадин, Оахака' },
-      { name: 'Mezcal Tosba', note: 'Артизанальный, дымный' },
-      { name: 'Bozal Tobasiche', note: 'Дикая агава, лимитированный' },
+      { id: 'm1', name: 'Del Maguey Vida', description: 'Эспадин, Оахака' },
+      { id: 'm2', name: 'Mezcal Tosba', description: 'Артизанальный, дымный' },
+      { id: 'm3', name: 'Bozal Tobasiche', description: 'Дикая агава, лимитированный' },
     ],
   },
   {
+    id: 'cocktails',
     category: 'Авторские коктейли',
     items: [
-      { name: 'La Ofrenda', note: 'Мескаль, hibiscus, chipotle' },
-      { name: 'Noche en CDMX', note: 'Текила, tamarindo, mezcal foam' },
-      { name: 'Sangre de Agave', note: 'Репозадо, blood orange, sage' },
+      { id: 'c1', name: 'La Ofrenda', description: 'Мескаль, hibiscus, chipotle' },
+      { id: 'c2', name: 'Noche en CDMX', description: 'Текила, tamarindo, mezcal foam' },
+      { id: 'c3', name: 'Sangre de Agave', description: 'Репозадо, blood orange, sage' },
     ],
   },
 ];
@@ -32,6 +36,16 @@ const barItems = [
 export function BarSection() {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+
+  const groups = useMemo(
+    () =>
+      barItems.map((group) => ({
+        id: group.id,
+        label: group.category,
+        items: group.items,
+      })),
+    []
+  );
 
   return (
     <section className="bar" id="bar" ref={ref}>
@@ -59,33 +73,14 @@ export function BarSection() {
           </p>
         </motion.div>
 
-        <div className="bar__columns">
-          {barItems.map((group, gi) => (
-            <motion.div
-              key={group.category}
-              className="bar__column"
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.2 + gi * 0.15 }}
-            >
-              <h3 className="bar__column-title">{group.category}</h3>
-              <ul className="bar__list">
-                {group.items.map((item, ii) => (
-                  <motion.li
-                    key={item.name}
-                    className="bar__item"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={isInView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ duration: 0.5, delay: 0.4 + gi * 0.15 + ii * 0.08 }}
-                  >
-                    <span className="bar__item-name">{item.name}</span>
-                    <span className="bar__item-note">{item.note}</span>
-                  </motion.li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </div>
+        <motion.div
+          className="bar__accordion"
+          initial={{ opacity: 0, y: 24 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <MenuAccordion groups={groups} />
+        </motion.div>
 
         <motion.p
           className="bar__footnote"

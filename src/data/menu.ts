@@ -1,5 +1,3 @@
-import { getPhoto } from './photos';
-
 export type MenuCategory =
   | 'tacos'
   | 'quesadillas'
@@ -14,7 +12,6 @@ export interface MenuItem {
   name: string;
   description: string;
   price: number;
-  photoIndex: number;
 }
 
 export const categoryLabels: Record<MenuCategory, string> = {
@@ -22,7 +19,7 @@ export const categoryLabels: Record<MenuCategory, string> = {
   quesadillas: 'Quesadillas',
   antojitos: 'Antojitos',
   grill: 'Grill',
-  bar: 'Bar',
+  bar: 'Коктейли',
   desserts: 'Desserts',
 };
 
@@ -33,7 +30,6 @@ export const menuItems: MenuItem[] = [
     name: 'Birria de Res',
     description: 'Медленно тушённая говядина, consomé, кинза, лук-порей',
     price: 890,
-    photoIndex: 0,
   },
   {
     id: 't2',
@@ -41,7 +37,6 @@ export const menuItems: MenuItem[] = [
     name: 'Carnitas Negras',
     description: 'Свинина confit, чёрный чили, лайм, микрозелень',
     price: 750,
-    photoIndex: 1,
   },
   {
     id: 't3',
@@ -49,7 +44,6 @@ export const menuItems: MenuItem[] = [
     name: 'Pulpo al Pastor',
     description: 'Осьминог, ананас, achiote, копчёная соль',
     price: 1120,
-    photoIndex: 2,
   },
   {
     id: 'q1',
@@ -57,7 +51,6 @@ export const menuItems: MenuItem[] = [
     name: 'Queso Oaxaca',
     description: 'Растягивающийся сыр, huitlacoche, трюфельное масло',
     price: 680,
-    photoIndex: 3,
   },
   {
     id: 'q2',
@@ -65,7 +58,6 @@ export const menuItems: MenuItem[] = [
     name: 'Chorizo & Manchego',
     description: 'Домашняя чоризо, манчего, сальса verde',
     price: 720,
-    photoIndex: 4,
   },
   {
     id: 'a1',
@@ -73,7 +65,6 @@ export const menuItems: MenuItem[] = [
     name: 'Elote Negro',
     description: 'Чёрная кукуруза, cotija, chipotle mayo, лайм',
     price: 520,
-    photoIndex: 5,
   },
   {
     id: 'a2',
@@ -81,7 +72,6 @@ export const menuItems: MenuItem[] = [
     name: 'Tostadas de Atún',
     description: 'Тунец татаки, авокадо, yuzu, кунжут',
     price: 980,
-    photoIndex: 0,
   },
   {
     id: 'g1',
@@ -89,7 +79,6 @@ export const menuItems: MenuItem[] = [
     name: 'Arrachera',
     description: 'Мраморная говядина, chimichurri, печёный перец',
     price: 2450,
-    photoIndex: 1,
   },
   {
     id: 'g2',
@@ -97,7 +86,6 @@ export const menuItems: MenuItem[] = [
     name: 'Pescado a la Brasa',
     description: 'Дорадо на углях, salsa macha, фенхель',
     price: 1890,
-    photoIndex: 2,
   },
   {
     id: 'b1',
@@ -105,7 +93,6 @@ export const menuItems: MenuItem[] = [
     name: 'Negroni Oaxaqueño',
     description: 'Мескаль, Campari, vermouth rosso, апельсин',
     price: 890,
-    photoIndex: 3,
   },
   {
     id: 'b2',
@@ -113,7 +100,6 @@ export const menuItems: MenuItem[] = [
     name: 'Paloma de Muerte',
     description: 'Текила reposado, грейпфрут, sal de gusano',
     price: 780,
-    photoIndex: 4,
   },
   {
     id: 'd1',
@@ -121,7 +107,6 @@ export const menuItems: MenuItem[] = [
     name: 'Churros de Canela',
     description: 'Тёплые чуррос, dulce de leche, ваниль',
     price: 480,
-    photoIndex: 5,
   },
   {
     id: 'd2',
@@ -129,14 +114,8 @@ export const menuItems: MenuItem[] = [
     name: 'Flan de Mascarpone',
     description: 'Карамель, мускатный орех, кофейная пена',
     price: 520,
-    photoIndex: 0,
   },
 ];
-
-export function getMenuPhoto(item: MenuItem): string {
-  if (item.category === 'bar') return '';
-  return getPhoto(item.photoIndex);
-}
 
 export const categories: MenuCategory[] = [
   'tacos',

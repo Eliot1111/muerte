@@ -1,0 +1,217 @@
+.menu-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.menu-accordion__section {
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-glass);
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(20px);
+  overflow: hidden;
+  transition:
+    border-color 0.4s ease,
+    box-shadow 0.5s var(--ease-out-expo);
+}
+
+.menu-accordion__section--open {
+  border-color: rgba(196, 30, 58, 0.35);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(212, 175, 55, 0.06);
+}
+
+.menu-accordion__trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.35rem 1.5rem;
+  text-align: left;
+  color: var(--color-bone);
+  transition: background 0.3s ease;
+}
+
+.menu-accordion__trigger:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.menu-accordion__trigger-main {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  min-width: 0;
+}
+
+.menu-accordion__index {
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--color-gold-muted);
+}
+
+.menu-accordion__label {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.menu-accordion__meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.menu-accordion__count {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-bone-subtle);
+}
+
+.menu-accordion__icon {
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+}
+
+.menu-accordion__icon::before,
+.menu-accordion__icon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.75rem;
+  height: 1px;
+  background: var(--color-gold);
+  transform: translate(-50%, -50%);
+  transition: transform 0.4s var(--ease-out-expo);
+}
+
+.menu-accordion__icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.menu-accordion__section--open .menu-accordion__icon::after {
+  transform: translate(-50%, -50%) rotate(90deg) scaleX(0);
+}
+
+.menu-accordion__panel {
+  overflow: hidden;
+}
+
+.menu-accordion__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 0 1.5rem 1.5rem;
+}
+
+.menu-accordion__card {
+  position: relative;
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  background: rgba(8, 8, 8, 0.55);
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(16px);
+  transition:
+    transform 0.5s var(--ease-out-expo),
+    border-color 0.4s ease,
+    box-shadow 0.5s var(--ease-out-expo);
+}
+
+.menu-accordion__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-gold), transparent);
+  opacity: 0.35;
+}
+
+.menu-accordion__card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-border-hover);
+  box-shadow:
+    0 16px 32px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(212, 175, 55, 0.08);
+}
+
+.menu-accordion__card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.menu-accordion__card-name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--color-bone);
+  line-height: 1.2;
+}
+
+.menu-accordion__card-price {
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-gold);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.menu-accordion__card-description {
+  font-size: 0.85rem;
+  color: var(--color-bone-muted);
+  line-height: 1.5;
+}
+
+@media (max-width: 1024px) {
+  .menu-accordion__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .menu-accordion__trigger {
+    padding: 1.15rem 1.25rem;
+    gap: 1rem;
+  }
+
+  .menu-accordion__trigger-main {
+    gap: 0.85rem;
+  }
+
+  .menu-accordion__meta {
+    gap: 0.75rem;
+  }
+
+  .menu-accordion__grid {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    padding: 0 1.25rem 1.25rem;
+  }
+
+  .menu-accordion__card {
+    padding: 1.25rem;
+  }
+
+  .menu-accordion__card-header {
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .menu-accordion__card-name {
+    font-size: 1.15rem;
+  }
+}

@@ -1,15 +1,29 @@
-import { useState, useRef } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { categories, categoryLabels, menuItems, type MenuCategory } from '../data/menu';
-import { MenuCard } from '../components/MenuCard';
+import { useMemo, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { MenuAccordion } from '../components/MenuAccordion';
+import { categories, categoryLabels, menuItems } from '../data/menu';
 import './MenuSection.css';
 
 export function MenuSection() {
-  const [activeCategory, setActiveCategory] = useState<MenuCategory>('tacos');
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-80px' });
 
-  const filtered = menuItems.filter((item) => item.category === activeCategory);
+  const groups = useMemo(
+    () =>
+      categories.map((category) => ({
+        id: category,
+        label: categoryLabels[category],
+        items: menuItems
+          .filter((item) => item.category === category)
+          .map((item) => ({
+            id: item.id,
+            name: item.name,
+            description: item.description,
+            price: item.price,
+          })),
+      })),
+    []
+  );
 
   return (
     <section className="menu" id="menu" ref={ref}>
@@ -29,38 +43,13 @@ export function MenuSection() {
           </p>
         </motion.div>
 
-        <motion.nav
-          className="menu__tabs"
-          initial={{ opacity: 0, y: 20 }}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          aria-label="Категории меню"
+          transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
         >
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              className={`menu__tab ${activeCategory === cat ? 'menu__tab--active' : ''}`}
-              onClick={() => setActiveCategory(cat)}
-            >
-              {categoryLabels[cat]}
-            </button>
-          ))}
-        </motion.nav>
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeCategory}
-            className="menu__grid"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.4 }}
-          >
-            {filtered.map((item, i) => (
-              <MenuCard key={item.id} item={item} index={i} />
-            ))}
-          </motion.div>
-        </AnimatePresence>
+          <MenuAccordion groups={groups} />
+        </motion.div>
       </div>
     </section>
   );
