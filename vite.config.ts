@@ -8,7 +8,7 @@ function resolveBaseUrl(env: Record<string, string>): string {
       : `${env.VITE_BASE_URL}/`;
   }
 
-  // GitHub Pages project sites are served from /{repo}/
+  // GitHub Actions: project Pages URL is /{repo}/
   if (process.env.GITHUB_ACTIONS === 'true') {
     const repo = process.env.GITHUB_REPOSITORY?.split('/')[1];
     if (repo) return `/${repo}/`;

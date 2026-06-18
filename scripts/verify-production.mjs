@@ -40,9 +40,20 @@ function main() {
   }
 
   const indexHtml = fs.readFileSync(path.join(dist, 'index.html'), 'utf8');
-  if (!indexHtml.includes('/assets/')) {
+
+  if (indexHtml.includes('/src/main.tsx')) {
+    console.error('✗ dist/index.html is a dev entry — production build did not run');
+    process.exit(1);
+  }
+
+  if (!indexHtml.includes('/assets/') && !indexHtml.includes('./assets/')) {
     console.error('✗ dist/index.html does not reference bundled assets');
     process.exit(1);
+  }
+
+  if (!fs.existsSync(path.join(dist, '404.html'))) {
+    fs.copyFileSync(path.join(dist, 'index.html'), path.join(dist, '404.html'));
+    console.log('✓ created dist/404.html for GitHub Pages SPA routing');
   }
 
   const distSize = getDirSize(dist);
