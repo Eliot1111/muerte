@@ -1,12 +1,28 @@
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
+function resolveBaseUrl(env: Record<string, string>): string {
+  if (env.VITE_BASE_URL) {
+    return env.VITE_BASE_URL.endsWith('/')
+      ? env.VITE_BASE_URL
+      : `${env.VITE_BASE_URL}/`;
+  }
+
+  // GitHub Pages project sites are served from /{repo}/
+  if (process.env.GITHUB_ACTIONS === 'true') {
+    const repo = process.env.GITHUB_REPOSITORY?.split('/')[1];
+    if (repo) return `/${repo}/`;
+  }
+
+  return '/';
+}
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   const isProd = mode === 'production';
 
   return {
-    base: env.VITE_BASE_URL || '/',
+    base: resolveBaseUrl(env),
     plugins: [react()],
     build: {
       target: 'es2022',

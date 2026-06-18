@@ -1,22 +1,24 @@
+import { assetUrl } from '../utils/assetUrl';
+
 export const MODELS = {
-  skull: '/models/santa-muerte-skull.glb',
-  candles: '/models/candles.glb',
-  mezcal: '/models/mezcal-bottle.glb',
-  agave: '/models/agave.glb',
-  taco: '/models/taco.glb',
-  lime: '/models/lime.glb',
-  chili: '/models/chili.glb',
-  ornament: '/models/mexican-ornament.glb',
+  skull: assetUrl('models/santa-muerte-skull.glb'),
+  candles: assetUrl('models/candles.glb'),
+  mezcal: assetUrl('models/mezcal-bottle.glb'),
+  agave: assetUrl('models/agave.glb'),
+  taco: assetUrl('models/taco.glb'),
+  lime: assetUrl('models/lime.glb'),
+  chili: assetUrl('models/chili.glb'),
+  ornament: assetUrl('models/mexican-ornament.glb'),
 } as const;
 
 // HDR available at public/hdr/studio-dark.exr (optional, not loaded by default)
-export const HDR = '/hdr/studio-dark.exr';
+export const HDR = assetUrl('hdr/studio-dark.exr');
 
 export const METAL = {
-  color: '/textures/metal/Metal042B_1K-JPG_Color.jpg',
-  normal: '/textures/metal/Metal042B_1K-JPG_NormalGL.jpg',
-  roughness: '/textures/metal/Metal042B_1K-JPG_Roughness.jpg',
-  metalness: '/textures/metal/Metal042B_1K-JPG_Metalness.jpg',
+  color: assetUrl('textures/metal/Metal042B_1K-JPG_Color.jpg'),
+  normal: assetUrl('textures/metal/Metal042B_1K-JPG_NormalGL.jpg'),
+  roughness: assetUrl('textures/metal/Metal042B_1K-JPG_Roughness.jpg'),
+  metalness: assetUrl('textures/metal/Metal042B_1K-JPG_Metalness.jpg'),
 } as const;
 
 export const COLORS = {

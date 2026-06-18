@@ -11,7 +11,7 @@ const legacyDir = path.join(root, 'photos');
 const photosDir = fs.existsSync(dishesDir) ? dishesDir : legacyDir;
 const outDir = path.join(root, 'public', 'dishes');
 const manifestPath = path.join(root, 'src', 'data', 'menu-photos.json');
-const publicUrlPrefix = '/dishes';
+const publicUrlPrefix = 'dishes';
 
 const SOURCE_EXT = /\.(heic|jpg|jpeg|png|webp)$/i;
 const TRY_ORDER = ['.heic', '.jpg', '.jpeg', '.png', '.webp'];
