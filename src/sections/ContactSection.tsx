@@ -1,6 +1,5 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { MagneticButton } from '../components/MagneticButton';
 import './ContactSection.css';
 
 export function ContactSection() {
@@ -47,26 +46,7 @@ export function ContactSection() {
                 17:00 — 02:00
               </span>
             </div>
-            <div className="contact__item">
-              <span className="contact__item-label">Карта</span>
-              <a
-                href="https://yandex.ru/maps"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="contact__item-value contact__item-link"
-              >
-                Открыть на карте →
-              </a>
-            </div>
           </div>
-
-          <MagneticButton
-            href="https://yandex.ru/maps"
-            variant="secondary"
-            className="contact__map-btn"
-          >
-            Как добраться
-          </MagneticButton>
         </motion.div>
       </div>
     </section>

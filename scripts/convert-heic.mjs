@@ -6,9 +6,12 @@ import sharp from 'sharp';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
-const photosDir = path.join(root, 'photos');
-const outDir = path.join(root, 'public', 'menu');
+const dishesDir = path.join(root, 'photos', 'dishes');
+const legacyDir = path.join(root, 'photos');
+const photosDir = fs.existsSync(dishesDir) ? dishesDir : legacyDir;
+const outDir = path.join(root, 'public', 'dishes');
 const manifestPath = path.join(root, 'src', 'data', 'menu-photos.json');
+const publicUrlPrefix = '/dishes';
 
 const SOURCE_EXT = /\.(heic|jpg|jpeg|png|webp)$/i;
 const TRY_ORDER = ['.heic', '.jpg', '.jpeg', '.png', '.webp'];
@@ -77,8 +80,15 @@ async function main() {
   fs.mkdirSync(outDir, { recursive: true });
   fs.mkdirSync(path.dirname(manifestPath), { recursive: true });
 
+  // Remove legacy menu output folder
+  const legacyOut = path.join(root, 'public', 'menu');
+  if (fs.existsSync(legacyOut)) {
+    fs.rmSync(legacyOut, { recursive: true, force: true });
+    console.log('✓ removed legacy public/menu/');
+  }
+
   if (!fs.existsSync(photosDir)) {
-    console.warn('photos/ directory not found — writing empty manifest');
+    console.warn('photos/dishes/ not found — writing empty manifest');
     fs.writeFileSync(manifestPath, JSON.stringify({ photos: [] }, null, 2));
     return;
   }
@@ -98,8 +108,8 @@ async function main() {
       const inputPath = path.join(photosDir, file);
       try {
         await convertFile(inputPath, outputPath);
-        converted.push(`/menu/${outputName}`);
-        console.log(`✓ ${file} → public/menu/${outputName}`);
+        converted.push(`${publicUrlPrefix}/${outputName}`);
+        console.log(`✓ ${file} → public/dishes/${outputName}`);
         success = true;
         break;
       } catch (err) {
@@ -116,10 +126,10 @@ async function main() {
   converted.sort();
   fs.writeFileSync(manifestPath, JSON.stringify({ photos: converted }, null, 2));
 
-  console.log(`\nDone: ${converted.length} photo(s) in public/menu/`);
+  console.log(`\nDone: ${converted.length} dish photo(s) in public/dishes/`);
 
   if (failures > 0) {
-    console.warn(`${failures} item(s) failed — menu cards will show fallbacks.`);
+    console.warn(`${failures} item(s) failed — dish cards will show fallbacks.`);
   }
 }
 

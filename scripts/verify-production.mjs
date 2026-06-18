@@ -11,7 +11,7 @@ const required = [
   'favicon.svg',
   'models/santa-muerte-skull.glb',
   'models/candles.glb',
-  'menu',
+  'dishes',
 ];
 
 function exists(relPath) {
@@ -32,11 +32,11 @@ function main() {
     process.exit(1);
   }
 
-  const menuDir = path.join(dist, 'menu');
-  const menuFiles = fs.readdirSync(menuDir).filter((f) => f.endsWith('.webp'));
+  const dishesDir = path.join(dist, 'dishes');
+  const dishFiles = fs.readdirSync(dishesDir).filter((f) => f.endsWith('.webp'));
 
-  if (menuFiles.length === 0) {
-    console.warn('⚠ No menu photos in dist/menu/ — menu cards will use fallbacks');
+  if (dishFiles.length === 0) {
+    console.warn('⚠ No dish photos in dist/dishes/ — food cards will use fallbacks');
   }
 
   const indexHtml = fs.readFileSync(path.join(dist, 'index.html'), 'utf8');
@@ -47,7 +47,7 @@ function main() {
 
   const distSize = getDirSize(dist);
   console.log(`✓ Production build verified (${formatBytes(distSize)})`);
-  console.log(`  - ${menuFiles.length} menu photo(s)`);
+  console.log(`  - ${dishFiles.length} dish photo(s)`);
   console.log(`  - 3D models present`);
 }
 

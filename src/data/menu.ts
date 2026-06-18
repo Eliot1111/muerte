@@ -134,6 +134,7 @@ export const menuItems: MenuItem[] = [
 ];
 
 export function getMenuPhoto(item: MenuItem): string {
+  if (item.category === 'bar') return '';
   return getPhoto(item.photoIndex);
 }
 

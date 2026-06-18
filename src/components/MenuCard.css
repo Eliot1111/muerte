@@ -19,6 +19,25 @@
     0 0 0 1px rgba(212, 175, 55, 0.08);
 }
 
+.menu-card--text-only {
+  padding-top: 0.25rem;
+}
+
+.menu-card--text-only .menu-card__content {
+  padding-top: 1.75rem;
+}
+
+.menu-card--text-only::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-gold), transparent);
+  opacity: 0.35;
+}
+
 .menu-card__image-wrap {
   position: relative;
   aspect-ratio: 4 / 3;

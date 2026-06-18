@@ -31,7 +31,7 @@ Thumbs.db
 .vite-temp/
 
 # Temp conversion files
-public/menu/.tmp-*
+public/dishes/.tmp-*
 
 # Optional: large source archives (assets are in public/ after prepare:assets)
 # models/*.zip
