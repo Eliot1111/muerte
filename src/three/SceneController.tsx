@@ -5,7 +5,7 @@ import * as THREE from 'three';
 /** Camera focus points — upper-center of viewport (text sits bottom-left) */
 const FOCUS = [
   new THREE.Vector3(0, 0.2, 0),       // 0 Mask
-  new THREE.Vector3(0.25, 0.22, 0),   // 1 Ritual — candles
+  new THREE.Vector3(0.25, 0.22, 0),   // 1 Ritual
   new THREE.Vector3(0, 0.15, 0),      // 2 Agave
   new THREE.Vector3(0.3, 0.1, 0),     // 3 Bar
   new THREE.Vector3(0, 0.12, 0),      // 4 Menu

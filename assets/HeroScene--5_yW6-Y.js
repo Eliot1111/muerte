@@ -1,1 +1,0 @@
-import{j as t}from"./motion-D7O9wCbu.js";import{L as e,S as r}from"./Lighting-BG4mfgiZ.js";import"./Canvas3D-BUYwlsD9.js";import"./three-BOPe-3yT.js";import"./postprocessing-BjBzNG03.js";function a(){return t.jsxs(t.Fragment,{children:[t.jsx(e,{redIntensity:1.4,keyIntensity:2.8,ambient:.1}),t.jsx(r,{visible:1,interactive:!0})]})}export{a as HeroScene};

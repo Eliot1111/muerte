@@ -6,7 +6,7 @@ import { centerAndScale, enhanceMeshMaterials } from './enhanceMaterials';
 
 interface LoadedModelProps {
   path: string;
-  profile?: 'skull' | 'candles' | 'product' | 'food' | 'default';
+  profile?: 'skull' | 'product' | 'food' | 'default';
   targetHeight?: number;
   visible?: number;
   position?: [number, number, number];

@@ -10,7 +10,6 @@ const required = [
   'index.html',
   'favicon.svg',
   'models/santa-muerte-skull.glb',
-  'models/candles.glb',
   'dishes',
 ];
 
@@ -66,7 +65,7 @@ function main() {
   const distSize = getDirSize(dist);
   console.log(`✓ Production build verified (${formatBytes(distSize)})`);
   console.log(`  - ${dishFiles.length} dish photo(s)`);
-  console.log(`  - 3D models present`);
+  console.log(`  - 3D model present`);
 }
 
 function getDirSize(dir) {

@@ -49,11 +49,6 @@ extractZip(
   'santa-muerte-skull.glb'
 );
 
-copyIfExists(
-  path.join(root, 'asset-sources', 'models', 'candelabra_de_calavera_-_halloween.glb'),
-  path.join(dirs.models, 'candles.glb')
-);
-
 // Optional models — copy if user adds them to models/
 const optionalModels = [
   'mezcal-bottle.glb',

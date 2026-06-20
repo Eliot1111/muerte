@@ -21,7 +21,7 @@ export function centerAndScale(
 
 export function enhanceMeshMaterials(
   root: THREE.Object3D,
-  profile: 'skull' | 'candles' | 'product' | 'food' | 'default' = 'default'
+  profile: 'skull' | 'product' | 'food' | 'default' = 'default'
 ) {
   root.traverse((child) => {
     if (!(child instanceof THREE.Mesh)) return;
@@ -92,9 +92,6 @@ function applyProfile(
         }
       }
       break;
-    case 'candles':
-      mat.roughness = Math.min(mat.roughness ?? 0.5, 0.75);
-      break;
     case 'product':
       mat.roughness = Math.min(mat.roughness ?? 0.2, 0.35);
       mat.metalness = mat.metalness ?? 0.1;
@@ -106,21 +103,4 @@ function applyProfile(
       mat.roughness = Math.min(mat.roughness ?? 0.6, 0.85);
       mat.metalness = mat.metalness ?? 0.1;
   }
-}
-
-export function smoothstep(edge0: number, edge1: number, x: number): number {
-  const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
-  return t * t * (3 - 2 * t);
-}
-
-export function stageVisibility(
-  progress: number,
-  start: number,
-  end: number,
-  fade = 0.1
-): number {
-  return (
-    smoothstep(start, start + fade, progress) *
-    (1 - smoothstep(end - fade, end, progress))
-  );
 }

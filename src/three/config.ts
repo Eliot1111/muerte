@@ -2,7 +2,6 @@ import { assetUrl } from '../utils/assetUrl';
 
 export const MODELS = {
   skull: assetUrl('models/santa-muerte-skull.glb'),
-  candles: assetUrl('models/candles.glb'),
   mezcal: assetUrl('models/mezcal-bottle.glb'),
   agave: assetUrl('models/agave.glb'),
   taco: assetUrl('models/taco.glb'),
