@@ -1,7 +1,18 @@
+import { type MouseEvent } from 'react';
+import { NAV_ITEMS } from '../data/navigation';
+import { homeHashPath } from '../utils/routing';
 import './Footer.css';
 
-export function Footer() {
+interface FooterProps {
+  onNavigateHome: (hash?: string) => void;
+}
+
+export function Footer({ onNavigateHome }: FooterProps) {
   const year = new Date().getFullYear();
+  const handleFooterLinkClick = (event: MouseEvent<HTMLAnchorElement>, hash: string) => {
+    event.preventDefault();
+    onNavigateHome(hash);
+  };
 
   return (
     <footer className="footer">
@@ -14,11 +25,15 @@ export function Footer() {
         </div>
 
         <div className="footer__links">
-          <a href="#concept">Концепция</a>
-          <a href="#menu">Меню</a>
-          <a href="#bar">Бар</a>
-          <a href="#reservation">Бронь</a>
-          <a href="#contacts">Контакты</a>
+          {NAV_ITEMS.map((item) => (
+            <a
+              key={item.id}
+              href={homeHashPath(item.href)}
+              onClick={(event) => handleFooterLinkClick(event, item.href)}
+            >
+              {item.label}
+            </a>
+          ))}
         </div>
 
         <p className="footer__copy">

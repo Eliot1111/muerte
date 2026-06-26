@@ -12,6 +12,7 @@ interface MagneticButtonProps {
   onClick?: () => void;
   className?: string;
   type?: 'button' | 'submit';
+  disabled?: boolean;
 }
 
 export function MagneticButton({
@@ -21,12 +22,15 @@ export function MagneticButton({
   onClick,
   className = '',
   type = 'button',
+  disabled = false,
 }: MagneticButtonProps) {
   const { ref, transform, handleMouseMove, handleMouseLeave } = useMagnetic({
     strength: 0.25,
   });
 
-  const classes = `magnetic-btn magnetic-btn--${variant} ${className}`.trim();
+  const classes = `magnetic-btn magnetic-btn--${variant} ${
+    disabled ? 'magnetic-btn--disabled' : ''
+  } ${className}`.trim();
 
   const inner = (
     <motion.span
@@ -48,7 +52,8 @@ export function MagneticButton({
         className={classes}
         onMouseMove={handleMouseMove as (e: MouseEvent) => void}
         onMouseLeave={handleMouseLeave}
-        onClick={onClick}
+        onClick={disabled ? undefined : onClick}
+        aria-disabled={disabled}
       >
         {inner}
       </motion.a>
@@ -63,6 +68,7 @@ export function MagneticButton({
       onMouseMove={handleMouseMove as (e: MouseEvent) => void}
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
+      disabled={disabled}
     >
       {inner}
     </motion.button>

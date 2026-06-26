@@ -27,7 +27,16 @@ function devHtmlEntryPlugin(): Plugin {
     name: 'dev-html-entry',
     configureServer(server) {
       server.middlewares.use((req, _res, next) => {
-        if (req.url === '/' || req.url === '/index.html') {
+        const requestPath = req.url?.split('?')[0] ?? '';
+        const acceptsHtml = req.headers.accept?.includes('text/html') ?? false;
+        const isAppRoute =
+          req.method === 'GET' &&
+          acceptsHtml &&
+          !requestPath.startsWith('/@') &&
+          !requestPath.startsWith('/src') &&
+          !path.extname(requestPath);
+
+        if (requestPath === '/' || requestPath === '/index.html' || isAppRoute) {
           req.url = '/index.vite.html';
         }
         next();

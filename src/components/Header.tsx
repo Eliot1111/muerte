@@ -1,9 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type MouseEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { NAV_ITEMS } from '../data/navigation';
+import { homeHashPath } from '../utils/routing';
 import './Header.css';
 
-export function Header() {
+interface HeaderProps {
+  onNavigateHome: (hash?: string) => void;
+}
+
+export function Header({ onNavigateHome }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -20,20 +25,35 @@ export function Header() {
     };
   }, [menuOpen]);
 
-  const handleNavClick = () => setMenuOpen(false);
+  const handleLogoClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    setMenuOpen(false);
+    onNavigateHome();
+  };
+
+  const handleNavClick = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+    event.preventDefault();
+    setMenuOpen(false);
+    onNavigateHome(href);
+  };
 
   return (
     <>
       <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
         <div className="header__inner container">
-          <a href="#" className="header__logo" onClick={handleNavClick}>
+          <a href={homeHashPath()} className="header__logo" onClick={handleLogoClick}>
             <span className="header__logo-main">Santa</span>
             <span className="header__logo-accent">MUERTE</span>
           </a>
 
           <nav className="header__nav" aria-label="Основная навигация">
             {NAV_ITEMS.map((item) => (
-              <a key={item.id} href={item.href} className="header__link">
+              <a
+                key={item.id}
+                href={homeHashPath(item.href)}
+                className="header__link"
+                onClick={(event) => handleNavClick(event, item.href)}
+              >
                 {item.label}
               </a>
             ))}
@@ -71,9 +91,9 @@ export function Header() {
               {NAV_ITEMS.map((item, i) => (
                 <motion.a
                   key={item.id}
-                  href={item.href}
+                  href={homeHashPath(item.href)}
                   className="mobile-menu__link"
-                  onClick={handleNavClick}
+                  onClick={(event) => handleNavClick(event, item.href)}
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
